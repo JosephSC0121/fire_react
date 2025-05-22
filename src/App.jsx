@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react';
-import FireMap from './FireMap';
+import FireSimulationMap from './FireSimulationMap';
+import timeSeries from '/public/fireTimeSeries.json';
 
-const App = () => {
-  const [timeSeries, setTimeSeries] = useState([]);
-  const [step, setStep] = useState(0);
+function App() {
 
-  useEffect(() => {
-    fetch('/fireData.json')
-      .then(res => res.json())
-      .then(setTimeSeries);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStep(prev => (prev + 1 < timeSeries.length ? prev + 1 : 0));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timeSeries]);
 
   return (
-    <div>
-      <FireMap timeSeries={timeSeries} step={step} />
-    </div>
+    <>
+      <FireSimulationMap timeSeries={timeSeries}/>
+    </>
   );
-};
+}
 
 export default App;
